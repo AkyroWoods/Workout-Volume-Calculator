@@ -2,14 +2,15 @@ import java.util.ArrayList;
 
 public class Workout {
     private ArrayList<Exercise> exercises;
+    private String name;
 
-    public Workout() {
+    public Workout(String name) {
+        this.name = name;
         this.exercises = new ArrayList<>();
     }
 
-    public void addExercise(String exercise, int sets, int reps, double weight) {
-        Exercise exerciseName = new Exercise(exercise, sets, reps, weight);
-        exercises.add(exerciseName);
+    public void addExercise(Exercise exercise) {
+        exercises.add(exercise);
     }
     public double calculateTotalWorkoutVolume() {
         double totalVolume = 0;
@@ -18,11 +19,29 @@ public class Workout {
         }
         return totalVolume;
     }
+    public void highestVolumeExercise() {
+        double exerciseVolume = exercises.get(0).calculateTotalVolume();
+        String exercise = exercises.get(0).getName();
 
-    public void listWorkout() {
+        for (int ii = 0; ii < exercises.size(); ii++) {
+            double currentExerciseVolume = exercises.get(ii).calculateTotalVolume();
+            if (currentExerciseVolume > exerciseVolume) {
+                exerciseVolume = currentExerciseVolume;
+                exercise = exercises.get(ii).getName();
+            }
+        }
+        System.out.println(exercise + ": was your highest volume exercise " +
+   " with a volume of: " + exerciseVolume);
+    }
+
+    public void printWorkout() {
         int exerciseCounter = 1;
         for (Exercise e: exercises) {
             System.out.println(exerciseCounter + ": " + e);
         }
+    }
+
+    public int size() {
+        return exercises.size();
     }
 }
