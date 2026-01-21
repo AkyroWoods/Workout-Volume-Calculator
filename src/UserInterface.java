@@ -42,11 +42,11 @@ public class UserInterface {
         } else if (isInteger(commandInput)) {
             int command = Integer.parseInt(commandInput);
 
-            if (command == 1) {
+            if (command == 1)  {
             System.out.print("Name: ");
             String name = scanner.nextLine();
-            System.out.print("Sets: ");
-            int sets = Integer.valueOf(scanner.nextLine());
+
+            int sets = readPositiveInteger("Sets:");
             System.out.print("Reps: ");
             int reps = Integer.valueOf(scanner.nextLine());
             System.out.print("Weight: ");
@@ -97,6 +97,7 @@ public class UserInterface {
         System.out.println("3: Calculate total workout volume");
         System.out.println("4: show highest volume exercise");
         System.out.println("help - list commands again ");
+        System.out.println("quit- quits the program");
     }
     private boolean isInteger(String input) {
         try {
@@ -104,6 +105,25 @@ public class UserInterface {
             return true;
         } catch (NumberFormatException e) {
             return false;
+        }
+    }
+    private int readPositiveInteger(String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String input = scanner.nextLine();
+
+            if (!isInteger(input)) {
+                System.out.println("Please enter a whole number");
+                continue;
+            }
+
+            int value = Integer.parseInt(input);
+
+            if (value < 1) {
+                System.out.println("Please enter a positive number");
+                continue;
+            }
+            return value;
         }
     }
     private void noExercisesAddedErrorMessage() {

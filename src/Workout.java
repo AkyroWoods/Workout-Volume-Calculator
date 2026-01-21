@@ -40,6 +40,21 @@ public class Workout {
             System.out.println(exerciseCounter + ": " + e);
         }
     }
+    public int totalSets() {
+        int sets = 0;
+        for (Exercise e: exercises) {
+            sets += e.getSets();
+        }
+        return sets;
+    }
+    
+    public int totalReps() {
+        int reps = 0;
+        for (Exercise e: exercises) {
+            reps += e.getReps();
+        }
+        return reps;
+    }
 
     public int size() {
         return exercises.size();
