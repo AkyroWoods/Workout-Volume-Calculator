@@ -39,48 +39,68 @@ public class UserInterface {
             return;
         } else if (commandInput.equalsIgnoreCase("quit")) {
             System.exit(0);
-        } else if (isInteger(commandInput)) {
+        }
+        if (isInteger(commandInput)) {
             int command = Integer.parseInt(commandInput);
 
-            if (command == 1) {
-                String name = readNonBlankString("Name: ");
-                int sets = readPositiveInteger("Sets: ");
-                int reps = readPositiveInteger("Reps: ");
-                double weight = readNonNegativeDouble("Weight: ");
+            switch (command) {
+                case 1:
+                    String name = readNonBlankString("Name: ");
+                    int sets = readPositiveInteger("Sets: ");
+                    int reps = readPositiveInteger("Reps: ");
+                    double weight = readNonNegativeDouble("Weight: ");
 
-                Exercise exerciseName = new Exercise(name, sets, reps, weight);
-                workout.addExercise(exerciseName);
+                    Exercise exerciseName = new Exercise(name, sets, reps, weight);
+                    workout.addExercise(exerciseName);
 
-                System.out.println();
-                System.out.println("\u001B[32m" + "Exercise added" + "\u001B[0m");
-                System.out.println();
-            } else if (command == 2) {
-                if (workout.size() == 0) {
-                    noExercisesAddedErrorMessage();
-                    return;
-                }
-                workout.printWorkout();
-                System.out.println();
+                    System.out.println();
+                    System.out.println("\u001B[32m" + "Exercise added" + "\u001B[0m");
+                    System.out.println();
+                    break;
+                case 2:
+                    if (workout.size() == 0) {
+                        noExercisesAddedErrorMessage();
+                        return;
+                    }
+                    workout.printWorkout();
+                    System.out.println();
+                    break;
 
-            } else if (command == 3) {
-                if (workout.size() == 0) {
-                    noExercisesAddedErrorMessage();
-                    return;
-                }
-                System.out.println(workout.calculateTotalWorkoutVolume());
+                case 3:
+                    if (workout.size() == 0) {
+                        noExercisesAddedErrorMessage();
+                        return;
+                    }
+                    System.out.println(workout.calculateTotalWorkoutVolume());
 
-                System.out.println();
-            } else if (command == 4) {
-                if (workout.size() == 0) {
-                    noExercisesAddedErrorMessage();
-                    return;
-                }
-
-                workout.highestVolumeExercise();
-                System.out.println();
-            } else
-                System.out.println("Unknown command. Type 'help' to see available options");
-        } else 
+                    System.out.println();
+                    break;
+                case 4:
+                    if (workout.size() == 0) {
+                        noExercisesAddedErrorMessage();
+                        return;
+                    }
+                    Exercise highestVolume = workout.highestVolumeExercise();
+                    System.out.println(
+                            highestVolume.getName() + " had a volume of " + highestVolume.calculateTotalVolume());
+                    System.out.println();
+                    break;
+                case 5:
+                    if (workout.size() == 0) {
+                        noExercisesAddedErrorMessage();
+                        return;
+                    }
+                    Exercise e = workout.highestVolumeExercise();
+                    System.out.println(workout.getName() + ", Total Sets: " + workout.totalSets() + ", Total Reps: "
+                            + workout.totalReps() +
+                            "Total Volume: " + workout.calculateTotalWorkoutVolume() + e.getName()
+                            + " was your highest volume exercise with a volume of "
+                            + e.calculateTotalVolume());
+                            break;
+                default:
+                    System.out.println("Unknown command. Type 'help' to see available options");
+            }
+        } else
             System.out.println("Invalid command number. Type 'help' to see valid commands.");
 
     }
@@ -89,9 +109,10 @@ public class UserInterface {
         System.out.println("1: Add exercise");
         System.out.println("2: List workout");
         System.out.println("3: Calculate total workout volume");
-        System.out.println("4: show highest volume exercise");
-        System.out.println("help - list commands again ");
-        System.out.println("quit- quits the program");
+        System.out.println("4: Show highest volume exercise");
+        System.out.println("5: Print workout Summary");
+        System.out.println("help - List commands again ");
+        System.out.println("quit- Quits the program");
     }
 
     private boolean isInteger(String input) {

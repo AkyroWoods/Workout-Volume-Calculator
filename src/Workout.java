@@ -8,6 +8,12 @@ public class Workout {
         this.name = name;
         this.exercises = new ArrayList<>();
     }
+    
+
+    public String getName() {
+        return name;
+    }
+
 
     public void addExercise(Exercise exercise) {
         exercises.add(exercise);
@@ -19,19 +25,16 @@ public class Workout {
         }
         return totalVolume;
     }
-    public void highestVolumeExercise() {
-        double exerciseVolume = exercises.get(0).calculateTotalVolume();
-        String exercise = exercises.get(0).getName();
+    public Exercise highestVolumeExercise() {
+        Exercise exercise = exercises.get(0);
 
         for (int ii = 0; ii < exercises.size(); ii++) {
             double currentExerciseVolume = exercises.get(ii).calculateTotalVolume();
-            if (currentExerciseVolume > exerciseVolume) {
-                exerciseVolume = currentExerciseVolume;
-                exercise = exercises.get(ii).getName();
+            if (currentExerciseVolume > exercise.calculateTotalVolume()) {
+                exercise = exercises.get(ii);
             }
         }
-        System.out.println(exercise + ": was your highest volume exercise " +
-   " with a volume of: " + exerciseVolume);
+        return exercise;
     }
 
     public void printWorkout() {
@@ -55,6 +58,7 @@ public class Workout {
         }
         return reps;
     }
+    
 
     public int size() {
         return exercises.size();
