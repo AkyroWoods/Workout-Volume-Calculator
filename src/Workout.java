@@ -14,6 +14,11 @@ public class Workout {
         return name;
     }
 
+    public ArrayList<Exercise> getExercises() {
+        return exercises;
+    }
+    
+
 
     public void addExercise(Exercise exercise) {
         exercises.add(exercise);
@@ -63,4 +68,7 @@ public class Workout {
     public int size() {
         return exercises.size();
     }
+
+
+    
 }

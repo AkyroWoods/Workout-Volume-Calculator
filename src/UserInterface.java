@@ -2,12 +2,15 @@ import java.util.Scanner;
 
 public class UserInterface {
     private Scanner scanner;
+    private AnalyticsEngine engine;
 
     public UserInterface(Scanner scanner) {
         this.scanner = scanner;
+        this.engine = new AnalyticsEngine();
     }
 
     public void start() {
+        
         System.out.print("Name of Workout: ");
         String workoutName = scanner.nextLine();
 
@@ -49,8 +52,9 @@ public class UserInterface {
                     int sets = readPositiveInteger("Sets: ");
                     int reps = readPositiveInteger("Reps: ");
                     double weight = readNonNegativeDouble("Weight: ");
+                    String muscleGroup = readNonBlankString("Muscle Group: ");
 
-                    Exercise exerciseName = new Exercise(name, sets, reps, weight);
+                    Exercise exerciseName = new Exercise(name, sets, reps, weight, muscleGroup);
                     workout.addExercise(exerciseName);
 
                     System.out.println();
@@ -80,7 +84,7 @@ public class UserInterface {
                         noExercisesAddedErrorMessage();
                         return;
                     }
-                    Exercise highestVolume = workout.highestVolumeExercise();
+                    Exercise highestVolume = engine.getHighestVolumeExercise();
                     System.out.println(
                             highestVolume.getName() + " had a volume of " + highestVolume.calculateTotalVolume());
                     System.out.println();
